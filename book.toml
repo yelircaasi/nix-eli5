@@ -1,0 +1,26 @@
+[book]
+title = "ELI5 - Nix/NixOS"
+description = "Some guy's very elementary notes on Nix and NixOS."
+authors = ["yelircaasi"]
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+mathjax-support = true
+site-url = "/neorg/"
+git-repository-url = "https://github.com/yelircaasi/nix-eli5/tree/master"
+edit-url-template = "https://github.com/yelircaasi/nix-eli5/tree/master/{path}"
+
+[output.html.playground]
+editable = true
+line-numbers = true
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2

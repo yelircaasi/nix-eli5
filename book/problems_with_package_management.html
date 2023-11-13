@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Problems with Package Management - ELI5 - Nix/NixOS</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Some guy&#x27;s very elementary notes on Nix and NixOS.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="what_is_nix.html"><strong aria-hidden="true">1.</strong> What Is Nix?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="problems_with_package_management.html" class="active"><strong aria-hidden="true">1.1.</strong> Problems with Package Management</a></li><li class="chapter-item expanded "><a href="non_nix_solutions.html"><strong aria-hidden="true">1.2.</strong> Non-Nix Solutions</a></li><li class="chapter-item expanded "><a href="desiderata_for_a_package_manager.html"><strong aria-hidden="true">1.3.</strong> Desiderata for a Package Manager</a></li><li class="chapter-item expanded "><a href="rough_sketch_of_a_solution.html"><strong aria-hidden="true">1.4.</strong> Rough Sketch of a Solution</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">ELI5 - Nix/NixOS</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/yelircaasi/nix-eli5/tree/master" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/yelircaasi/nix-eli5/tree/master/src/problems_with_package_management.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="problems-with-package-management"><a class="header" href="#problems-with-package-management">Problems with Package Management</a></h1>
+<p>First, a word about terminology - a more precise term may be &quot;software
+deployment&quot;. But for an entry-level explanation of Nix, the important thing
+is just to pick a term and be clear about what it means. So when I say &quot;package
+management&quot;, I'm also referring to software deployment, software dependency
+management, and so on. Basically, we're talking about using software that
+depends on other software, whether it be in development or deployment.</p>
+<p>So for the very big picture: Software usually depends on other software. In
+theory, it is possible to write everything from scratch if you are
+both <a href="https://en.wikipedia.org/wiki/Terry_A._Davis">exremely talented and extremely insane</a>.
+In practice, it is much nicer to 'stand on the shoulders of giants' and not
+'reinvent the wheel', using instead software that has already been written.</p>
+<p>Good software, in some ways, is like a living organism. New versions are
+released from time to time, sometimes to add features, sometimes to fix bugs
+and to patch security vulnerabilities, and sometimes just to improve code
+quality. It is generally a good idea to keep up-to-date on software, but in,
+practice, some projects are better than others at keeping their dependincies
+up-to-date. If we're unlucky, this can lead to dependency conflicts, where
+outr project has dependencies which we'll call A and B, and A depends on a
+different, older version of B. Under &quot;vanilla&quot; Linux, we can't have two 
+versions of the package installed. We may have to use an older version of A, or
+maybe &quot;vendor&quot; one of the packages, copying it into our codebase and maintaining
+it as our own, which of course is extra work we'd probably prefer to avoid. 
+Obviously, waiting for B to be updated is also far from ideal.</p>
+<p>It's also possible for A and B to each depend on a third package, C, but require
+different versions of it, once again requiring some suboptimal and frustrating
+solution.</p>
+<p>There is another common problem - packages with unclear dependencies.
+In some cases, these dependencies are unknown or unrecognized because
+they are <strong>usually</strong> present on a Linux system. But if they are missing, the
+project may fail to build or run. Anyone who has tried to install packages on
+a fresh install of Ubuntu or Debian has probably encountered this, for example.
+Usually the fix is simple - you search the error and find a Stack Overflow
+explaining which packages you need to install in order for the packages to
+build or run. Still, this kind of approach to software installation is
+mildly irritating and clearly suboptimal. Sometimes, the problem is not so
+simple and developers can waste hours trying to figure out exactly which
+dependencies are missing.</p>
+<p>Finally, another example of something about the status quo that we might want
+to improve upon - getting programs configured right is a fine art, and 
+&quot;dotfiles&quot; (configuration files) are very important to users who want programs
+to behave in a certain way. Configurations are an important part of the
+software, and managing configurations on multiple devices can be tedious.
+This can also be problematic when developers are working on the same project.
+The &quot;it works on my machine&quot; trope has become a meme precisely because
+differences between local environments can be so difficult to track down and
+to manage.</p>
+<p>These are just a few examples to illustrate why installing software, and 
+developing software that depends on other software, is not always as 
+straightforward a process as one might assume or hope. So what to do? And what
+do people do?</p>
+<!-->
+<p>This, in a sense, gives up a certain amound of control. It makes us as
+programmers dependent on code that someone else has written.</p>
+<p>Usually this isn't too bad, per se. Where it gets really tricky is when software
+changes. Developers improve the quality of their software, add features, and
+(hopefully) update it to protect vulnerabilities. This is so important that
+software is considered less secure when it is not updated, because so-called
+security patches are released. In any case, software comes out in different
+versions, and ideally, all other things being equal, it is desirable to keep
+software versions atthe latest version.--&gt;</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="what_is_nix.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="non_nix_solutions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="what_is_nix.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="non_nix_solutions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
