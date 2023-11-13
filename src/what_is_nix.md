@@ -1,10 +1,10 @@
 # What Is Nix?
 
 This is already a slightly tricky question, because Nix can mean multiple
-things. On the one hand, it is a package manager. On the other hand,it is also
-the language in which the programming language is written. And finally, NixOS
+things. On the one hand, it is a package manager. On the other hand, it is also
+the programming language in which the package manager is written. And finally, NixOS
 is the name of the operating system (a distribution or flavor of Linux) that is
-built with, and upone the principles of, the Nix language and package manager.
+built with, and according to the principles of, the Nix language and package manager.
 
 So Nix is a package manager, Nix is a programming language, and NixOS is a
 so-called distribution of Linux (an operating system).
