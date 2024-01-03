@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Non-Nix Solutions - ELI5 - Nix/NixOS</title>
+        <title>Interlude 1 - Why Is Nix Easy? - ELI5 - Nix/NixOS</title>
 
 
         <!-- Custom HTML head -->
@@ -85,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="what_is_nix.html"><strong aria-hidden="true">1.</strong> What Is Nix?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="problems_with_package_management.html"><strong aria-hidden="true">1.1.</strong> Problems with Package Management</a></li><li class="chapter-item expanded "><a href="non_nix_solutions.html" class="active"><strong aria-hidden="true">1.2.</strong> Non-Nix Solutions</a></li><li class="chapter-item expanded "><a href="desiderata_for_a_package_manager.html"><strong aria-hidden="true">1.3.</strong> Desiderata for a Package Manager</a></li><li class="chapter-item expanded "><a href="rough_sketch_of_a_solution.html"><strong aria-hidden="true">1.4.</strong> Rough Sketch of a Solution</a></li><li class="chapter-item expanded "><a href="why_is_nix_hard.html"><strong aria-hidden="true">1.5.</strong> Interlude 1 - Why Is Nix Hard?</a></li><li class="chapter-item expanded "><a href="why_is_nix_easy.html"><strong aria-hidden="true">1.6.</strong> Interlude 1 - Why Is Nix Easy?</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="what_is_nix.html"><strong aria-hidden="true">1.</strong> What Is Nix?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="problems_with_package_management.html"><strong aria-hidden="true">1.1.</strong> Problems with Package Management</a></li><li class="chapter-item expanded "><a href="non_nix_solutions.html"><strong aria-hidden="true">1.2.</strong> Non-Nix Solutions</a></li><li class="chapter-item expanded "><a href="desiderata_for_a_package_manager.html"><strong aria-hidden="true">1.3.</strong> Desiderata for a Package Manager</a></li><li class="chapter-item expanded "><a href="rough_sketch_of_a_solution.html"><strong aria-hidden="true">1.4.</strong> Rough Sketch of a Solution</a></li><li class="chapter-item expanded "><a href="why_is_nix_hard.html"><strong aria-hidden="true">1.5.</strong> Interlude 1 - Why Is Nix Hard?</a></li><li class="chapter-item expanded "><a href="why_is_nix_easy.html" class="active"><strong aria-hidden="true">1.6.</strong> Interlude 1 - Why Is Nix Easy?</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -123,7 +123,7 @@
                         <a href="https://github.com/yelircaasi/nix-eli5/tree/master" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/yelircaasi/nix-eli5/tree/master/src/non_nix_solutions.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/yelircaasi/nix-eli5/tree/master/src/why_is_nix_easy.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -152,48 +152,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="non-nix-solutions"><a class="header" href="#non-nix-solutions">Non-Nix Solutions</a></h1>
-<p>Most programming languages have built-in package managers, or packages managers
-that are at least closely associated with and developed for the language.
-In the world of Linux, package managers and package repositories are among the
-most important differences between distributions. </p>
-<p>Some programming languages or tools also provide &quot;virtual environments&quot; (as
-in the case of Python) or similar, to isolate dependencies in one project from
-the dependencies used in other projects or globally on the system.</p>
-<p>There are also other approaches. One of the most popular is containerization,
-similar to virtual machines (simulating another computer via software, and
-working within this 'virtual' computer or virtual machine), but more
-lightweight. Basically, it shares CPU resources with the global system, but
-the filepath hierarchy is separate and access to the global system must be
-explicitly granted.</p>
-<p>These approaches have their benefits, but they are still far from ideal.
-Containers are still fairly heavy, as they require installing nearly everything
-needed for a program to run inside the container. Images (the disk snapshot
-of a container) can be several or even tens of GB large. And this still leaves
-the possibility of dependency conflicts or dependencies that are not fully,
-specified, requiring a tedious process of trial-and-error to find and install
-missing dependencies.</p>
-<p>Similarly, virtual environments require a lot of duplication of code, and
-external dependencies (system libraries, drivers, headers in the case of
-languages like C/C++, etc.) are not installed inside the virtual library. Then
-there is also the case of dependency resolution. Again, in the case of Python -
-a popular and relatively simple programming language with notoriously
-problematic package  and environment management - there are tools like Poetry
-for dependency resolution and virtual environment management, which do improve
-the situation, but even so, dependency resolution may fail.</p>
-<p>So what to do?</p>
+                        <h1 id="interlude-2---why-is-nix-easy"><a class="header" href="#interlude-2---why-is-nix-easy">Interlude 2 - Why is Nix easy?</a></h1>
+<p>Having just talked about why Nix is hard, it's only fair to ask on the other hand why Nix is easy.
+Here are a few things that come to mind:</p>
+<ul>
+<li><strong>bizarrely easy rollbacks</strong> - nearly impossible to really bork your system (i.e., you'd have to try). This is 
+because if something goes wrong, you can simply reboot and select the last (or any previous)
+&quot;generation&quot; where everything was stable and working just fine. Then, rather than losing months
+or even years'  worth of accumulated experience and configuration, you just lose whatever changes 
+you made since the last time you ran <code>nixos-rebuild switch</code> (same goes for <code>home-manager switch</code>).</li>
+<li><strong>wonderful community</strong> - perhaps surprising for a functional language, which sometimes have a 
+reputation for having elitist, snobbish, unwelcoming communities compared to some wonderfully 
+welcoming and helpful communities like (in my experience) the Julia, Raku, or Rust
+communities. In my experience, NixOS communities, channels, and fora - both official and unofficial 
+<ul>
+<li>have more in common with the latter. Much like with Rust, NixOS tends to inspire a certain kind of mostly-benign fanaticism, and this has the wonderful side-effect of willingness - often even eagerness - to help new beginners.</li>
+</ul>
+</li>
+<li><strong>availability of software</strong> - Nixpkgs is the best software repository out there. I'm asserting this
+without evidence, but take a look at <a href="https://repology.org/">repology.org</a> - it's impressive.
+And maybe the best part is related to the next point - if something is missing, you can still
+use it in the same way (and with the same functionality and advantages) by writing your own
+expression for it, and you can add it to Nixpkgs using basic Git and Github.</li>
+<li><strong>extensibility</strong> - once you have reached a certain level of proficiency (and yes, that is easier said
+than done, but it is doable), the possibilities are limitless. Nix is extremely powerful and 
+allows fine-grained control over small details. If you want to change the way something is built,
+you can do that in Nix. If you want to have the same configuration for all of your devices, but 
+with certain differences, you can do that. If you want to write your own functions to control
+how Nix configures your favorite software, you can do that.</li>
+<li><strong>everything all in one place</strong> - coming from other Linux distros (with the exception of Guix System, 
+which is a GNU-y and LISP-y spinoff of NixOS), it feels like a luxury to be able to declare and configure everything all in one folder that is tracked by Git. This means backups are trivially easy - built-in, in fact. And you don't need to look through a dozen locations to find where a given app is getting its configuration from. Having a clean overview of your system is priceless.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="problems_with_package_management.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="why_is_nix_hard.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="desiderata_for_a_package_manager.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -201,13 +199,10 @@ the situation, but even so, dependency resolution may fail.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="problems_with_package_management.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="why_is_nix_hard.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="desiderata_for_a_package_manager.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

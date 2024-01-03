@@ -19,7 +19,7 @@ and to patch security vulnerabilities, and sometimes just to improve code
 quality. It is generally a good idea to keep up-to-date on software, but in,
 practice, some projects are better than others at keeping their dependincies
 up-to-date. If we're unlucky, this can lead to dependency conflicts, where
-outr project has dependencies which we'll call A and B, and A depends on a
+our project has dependencies which we'll call A and B, and A depends on a
 different, older version of B. Under "vanilla" Linux, we can't have two 
 versions of the package installed. We may have to use an older version of A, or
 maybe "vendor" one of the packages, copying it into our codebase and maintaining
@@ -56,15 +56,3 @@ These are just a few examples to illustrate why installing software, and
 developing software that depends on other software, is not always as 
 straightforward a process as one might assume or hope. So what to do? And what
 do people do?
-
-<!-->
-This, in a sense, gives up a certain amound of control. It makes us as
-programmers dependent on code that someone else has written.
-
-Usually this isn't too bad, per se. Where it gets really tricky is when software
-changes. Developers improve the quality of their software, add features, and
-(hopefully) update it to protect vulnerabilities. This is so important that
-software is considered less secure when it is not updated, because so-called
-security patches are released. In any case, software comes out in different
-versions, and ideally, all other things being equal, it is desirable to keep
-software versions atthe latest version.-->

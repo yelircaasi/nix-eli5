@@ -86,7 +86,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="what_is_nix.html"><strong aria-hidden="true">1.</strong> What Is Nix?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="problems_with_package_management.html"><strong aria-hidden="true">1.1.</strong> Problems with Package Management</a></li><li class="chapter-item expanded "><a href="non_nix_solutions.html"><strong aria-hidden="true">1.2.</strong> Non-Nix Solutions</a></li><li class="chapter-item expanded "><a href="desiderata_for_a_package_manager.html"><strong aria-hidden="true">1.3.</strong> Desiderata for a Package Manager</a></li><li class="chapter-item expanded "><a href="rough_sketch_of_a_solution.html"><strong aria-hidden="true">1.4.</strong> Rough Sketch of a Solution</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="what_is_nix.html"><strong aria-hidden="true">1.</strong> What Is Nix?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="problems_with_package_management.html"><strong aria-hidden="true">1.1.</strong> Problems with Package Management</a></li><li class="chapter-item expanded "><a href="non_nix_solutions.html"><strong aria-hidden="true">1.2.</strong> Non-Nix Solutions</a></li><li class="chapter-item expanded "><a href="desiderata_for_a_package_manager.html"><strong aria-hidden="true">1.3.</strong> Desiderata for a Package Manager</a></li><li class="chapter-item expanded "><a href="rough_sketch_of_a_solution.html"><strong aria-hidden="true">1.4.</strong> Rough Sketch of a Solution</a></li><li class="chapter-item expanded "><a href="why_is_nix_hard.html"><strong aria-hidden="true">1.5.</strong> Interlude 1 - Why Is Nix Hard?</a></li><li class="chapter-item expanded "><a href="why_is_nix_easy.html"><strong aria-hidden="true">1.6.</strong> Interlude 1 - Why Is Nix Easy?</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -164,10 +164,10 @@ learn by explaining these very thoroughly and methodically.</p>
 <p>Without further ado, then - what is Nix?</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-nix"><a class="header" href="#what-is-nix">What Is Nix?</a></h1>
 <p>This is already a slightly tricky question, because Nix can mean multiple
-things. On the one hand, it is a package manager. On the other hand,it is also
-the language in which the programming language is written. And finally, NixOS
+things. On the one hand, it is a package manager. On the other hand, it is also
+the programming language in which the package manager is written. And finally, NixOS
 is the name of the operating system (a distribution or flavor of Linux) that is
-built with, and upone the principles of, the Nix language and package manager.</p>
+built with, and according to the principles of, the Nix language and package manager.</p>
 <p>So Nix is a package manager, Nix is a programming language, and NixOS is a
 so-called distribution of Linux (an operating system).</p>
 <p>A few words about NixOS at this point - it is indisputably Linux, GNU/Linux
@@ -214,7 +214,7 @@ and to patch security vulnerabilities, and sometimes just to improve code
 quality. It is generally a good idea to keep up-to-date on software, but in,
 practice, some projects are better than others at keeping their dependincies
 up-to-date. If we're unlucky, this can lead to dependency conflicts, where
-outr project has dependencies which we'll call A and B, and A depends on a
+our project has dependencies which we'll call A and B, and A depends on a
 different, older version of B. Under &quot;vanilla&quot; Linux, we can't have two 
 versions of the package installed. We may have to use an older version of A, or
 maybe &quot;vendor&quot; one of the packages, copying it into our codebase and maintaining
@@ -247,16 +247,6 @@ to manage.</p>
 developing software that depends on other software, is not always as 
 straightforward a process as one might assume or hope. So what to do? And what
 do people do?</p>
-<!-->
-<p>This, in a sense, gives up a certain amound of control. It makes us as
-programmers dependent on code that someone else has written.</p>
-<p>Usually this isn't too bad, per se. Where it gets really tricky is when software
-changes. Developers improve the quality of their software, add features, and
-(hopefully) update it to protect vulnerabilities. This is so important that
-software is considered less secure when it is not updated, because so-called
-security patches are released. In any case, software comes out in different
-versions, and ideally, all other things being equal, it is desirable to keep
-software versions atthe latest version.--&gt;</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="non-nix-solutions"><a class="header" href="#non-nix-solutions">Non-Nix Solutions</a></h1>
 <p>Most programming languages have built-in package managers, or packages managers
 that are at least closely associated with and developed for the language.
@@ -298,7 +288,7 @@ so that we can get it right the first time - no trial-and-error. It would be
 nice to have the different versions of the same package if we happen to need
 both of them, and this is true whether we need them simultaneously of simply for
 different projects.</p>
-<h2 id="declatrative-over-imperative--procedural-package-management"><a class="header" href="#declatrative-over-imperative--procedural-package-management">Declatrative over Imperative / Procedural Package Management</a></h2>
+<h2 id="declarative-over-imperative--procedural-package-management"><a class="header" href="#declarative-over-imperative--procedural-package-management">Declarative over Imperative / Procedural Package Management</a></h2>
 <p>Another thing that would be great is declarativeness. Usually we have to
 install packages as we need them, one after the other, as we figure out we need 
 them. The traditional  approach to dependency management is, to some degree, 
@@ -374,6 +364,48 @@ understanding Nix and its design.</p>
 <p>How would we go about deisgning an workable implementation of all or even some
 of out desiderata we just listed?</p>
 <p>TODO, WIP</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="interlude-1---why-is-nix-hard"><a class="header" href="#interlude-1---why-is-nix-hard">Interlude 1 - Why is Nix hard?</a></h1>
+<ul>
+<li><strong>unfamiliar language with mind-stretching new concepts</strong> - unless you are a Haskell (or PureScript, Idris, etc.) developer, the Nix language will take some getting used to. If you're coming from a background in C, C++, Python, Java, Javascript, C# or similar, you are used to thinking of programming 
+in terms of sequences of instructions. Sure, objects abstract this away to some extent, but you can still find the entry point and trace what happens, step-by-step. This has the indisputable advantage of being close to the way computers actually work: in assembly language (and to an even greater extent in machine code), your program really is just a sequence of instructions being executed. Functional programming is a bit further removed from how computers actually work. To what end? The benefit of functional programming is the focus on a clean mapping from input to output
+without side effects - in other words, functional programming is further from the CPU and closer to mathematics. In practice, this means that Nix can be a bit frustrating to read at first, because order of execution doesn't matter like it does in, say, Python. Nix is declarative, and this is a huge advantage, but it does mean that reading Nix feels different than reading a more 'normie' language. Nis has been described as 'JSON with functions', and I find this is a helpful way of thinking about it. Of course, it also has a few quirks like '<code>let-in</code> syntax', but with time and experience, the benefits of (nearly) every design choice will become clear and they will become more of a delight and less of a hindrance to understanding.</li>
+<li><strong>terribly unhelpful error messages</strong> - even the core team of Nix will acknowledge this. This is closely related to the point above; functional<br />
+languages, because they are inherently less sequential, can make it harder to localize the exact cause of the error, because sometimes expressions are evaluated in a different place than where they are written in your source code, and the error then refers to that evaluation-related location, rather than the location where you would actually fix the error. The Nix core developers have this on their radar and are working on it, but it's one of the poin points that people generally learn to live with. Over time, debugging Nix is something you will get a feel for, even if the error traces are less immediately helpful than in, say, Julia or Python.</li>
+<li><strong>lacking documentation</strong> - this is getting better all the time, but it's uncontroversial to say that Nix/NixOS does not have the same caliber of 
+documentation as, say, PHP or C#. The ecosystem can feel a bit chaotic, especially at first when you're stilling getting a feel for it.</li>
+<li><strong>slightly awkward transition phase</strong> - at the time of writing (January 2024), Nix flakes and the 'Nix command' (<code>nix &lt;subcommand&gt;</code> rather than <code>nix-&lt;command&gt;</code>) are in the awkward position of being considered best practices by the community while also being officially 'experimental'. This means that most of the official documentation focuses on the 'stable', non-experimental commands and features. There are some excellent sources that remedy this, and this is getting better with time. But the transition from 'Nix 2' to 'Nix '3.0' (not yet released, but planned to include flakes and the Nix command as first-class citizens) is not entirely painless. Still, it's probably better than Scala's 2-to-3 migration and indisputably much better than Python's 2-to-3 chaos :)</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="interlude-2---why-is-nix-easy"><a class="header" href="#interlude-2---why-is-nix-easy">Interlude 2 - Why is Nix easy?</a></h1>
+<p>Having just talked about why Nix is hard, it's only fair to ask on the other hand why Nix is easy.
+Here are a few things that come to mind:</p>
+<ul>
+<li><strong>bizarrely easy rollbacks</strong> - nearly impossible to really bork your system (i.e., you'd have to try). This is 
+because if something goes wrong, you can simply reboot and select the last (or any previous)
+&quot;generation&quot; where everything was stable and working just fine. Then, rather than losing months
+or even years'  worth of accumulated experience and configuration, you just lose whatever changes 
+you made since the last time you ran <code>nixos-rebuild switch</code> (same goes for <code>home-manager switch</code>).</li>
+<li><strong>wonderful community</strong> - perhaps surprising for a functional language, which sometimes have a 
+reputation for having elitist, snobbish, unwelcoming communities compared to some wonderfully 
+welcoming and helpful communities like (in my experience) the Julia, Raku, or Rust
+communities. In my experience, NixOS communities, channels, and fora - both official and unofficial 
+<ul>
+<li>have more in common with the latter. Much like with Rust, NixOS tends to inspire a certain kind of mostly-benign fanaticism, and this has the wonderful side-effect of willingness - often even eagerness - to help new beginners.</li>
+</ul>
+</li>
+<li><strong>availability of software</strong> - Nixpkgs is the best software repository out there. I'm asserting this
+without evidence, but take a look at <a href="https://repology.org/">repology.org</a> - it's impressive.
+And maybe the best part is related to the next point - if something is missing, you can still
+use it in the same way (and with the same functionality and advantages) by writing your own
+expression for it, and you can add it to Nixpkgs using basic Git and Github.</li>
+<li><strong>extensibility</strong> - once you have reached a certain level of proficiency (and yes, that is easier said
+than done, but it is doable), the possibilities are limitless. Nix is extremely powerful and 
+allows fine-grained control over small details. If you want to change the way something is built,
+you can do that in Nix. If you want to have the same configuration for all of your devices, but 
+with certain differences, you can do that. If you want to write your own functions to control
+how Nix configures your favorite software, you can do that.</li>
+<li><strong>everything all in one place</strong> - coming from other Linux distros (with the exception of Guix System, 
+which is a GNU-y and LISP-y spinoff of NixOS), it feels like a luxury to be able to declare and configure everything all in one folder that is tracked by Git. This means backups are trivially easy - built-in, in fact. And you don't need to look through a dozen locations to find where a given app is getting its configuration from. Having a clean overview of your system is priceless.</li>
+</ul>
 
                     </main>
 

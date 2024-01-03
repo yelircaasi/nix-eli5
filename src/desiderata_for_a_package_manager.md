@@ -13,7 +13,7 @@ nice to have the different versions of the same package if we happen to need
 both of them, and this is true whether we need them simultaneously of simply for
 different projects.
 
-## Declatrative over Imperative / Procedural Package Management
+## Declarative over Imperative / Procedural Package Management
 
 Another thing that would be great is declarativeness. Usually we have to
 install packages as we need them, one after the other, as we figure out we need 
