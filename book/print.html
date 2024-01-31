@@ -212,7 +212,7 @@ In practice, it is much nicer to 'stand on the shoulders of giants' and not
 released from time to time, sometimes to add features, sometimes to fix bugs
 and to patch security vulnerabilities, and sometimes just to improve code
 quality. It is generally a good idea to keep up-to-date on software, but in,
-practice, some projects are better than others at keeping their dependincies
+practice, some projects are better than others at keeping their dependencies
 up-to-date. If we're unlucky, this can lead to dependency conflicts, where
 our project has dependencies which we'll call A and B, and A depends on a
 different, older version of B. Under &quot;vanilla&quot; Linux, we can't have two 
@@ -225,19 +225,19 @@ different versions of it, once again requiring some suboptimal and frustrating
 solution.</p>
 <p>There is another common problem - packages with unclear dependencies.
 In some cases, these dependencies are unknown or unrecognized because
-they are <strong>usually</strong> present on a Linux system. But if they are missing, the
+they are <em>usually</em> present on a Linux system. But if they are missing, the
 project may fail to build or run. Anyone who has tried to install packages on
 a fresh install of Ubuntu or Debian has probably encountered this, for example.
-Usually the fix is simple - you search the error and find a Stack Overflow
-explaining which packages you need to install in order for the packages to
-build or run. Still, this kind of approach to software installation is
+Usually the fix is simple - you search the error and find a Stack Overflow 
+answer explaining which packages you need to install in order for the packages 
+to build or run. Still, this kind of approach to software installation is
 mildly irritating and clearly suboptimal. Sometimes, the problem is not so
 simple and developers can waste hours trying to figure out exactly which
 dependencies are missing.</p>
 <p>Finally, another example of something about the status quo that we might want
 to improve upon - getting programs configured right is a fine art, and 
 &quot;dotfiles&quot; (configuration files) are very important to users who want programs
-to behave in a certain way. Configurations are an important part of the
+to look or behave a certain way. Configurations are an important part of the
 software, and managing configurations on multiple devices can be tedious.
 This can also be problematic when developers are working on the same project.
 The &quot;it works on my machine&quot; trope has become a meme precisely because
@@ -301,6 +301,13 @@ The best package managers are good at figuring out which dependencies are
 required and doing it automatically, rather than requiring the user to
 imperatively install dependencies. Declarativeness is nice - we say what and
 the package manager figures out how.</p>
+<p>To be fair, there are install scripts. A script is clearly imperative - it is,
+after, just a sequence of instructions - by definition. At the same time, it is
+a more declarative approach to imperativeness, since it records the steps all in
+one place, in a reproducible manner. This, I believe, is why scripts are so 
+popular. It's also why Ansible is such a powerful and popular approach to 
+configuration management. But that doesn't that the scripting approach can't be
+improved upon.</p>
 <h2 id="fine-grained-control"><a class="header" href="#fine-grained-control">Fine-Grained Control</a></h2>
 <p>While we're dreaming, we might also add a few more items to the wish list. It
 would be nice to be able to specify different options when installing software.
@@ -323,7 +330,7 @@ for example, you might install most packages with apt, but some from source,
 some through various programming languages, maybe npm or Cargo. It is not
 uncommon to uninstall something you think is not longer needed, only to find
 that removing the package broke something in unexpected ways.</p>
-<p>You might try to be at least a bit <strong>more</strong> declarative about installing
+<p>You might try to be at least a bit <em>more</em> declarative about installing
 packages. You might keep track of what exactly you installed and do your
 best to roll back the state of your environment by tracing your steps and
 trying to undo them. Some commands like <code>apt autoremove</code> are helpful
@@ -345,7 +352,8 @@ completely borks something else? Sometimes even something seemingly unrelated.
 Clearly side effects are not ideal. If we could install packages in such a way
 that they 'left other packages alone', that would be great.</p>
 <h2 id="peaceful-co-existence-of-different-versions"><a class="header" href="#peaceful-co-existence-of-different-versions">Peaceful Co-Existence of Different Versions</a></h2>
-<p>We already mentioned it, but there are often cases where would be desirable to
+<p>We already mentioned it, and it's related to the point above, but there are 
+often cases where would be desirable to
 have different versions of the same package side-by side. If there is just one
 available place for a package of a certain name, how is this even possible?
 It isn't, not in the <code>$PATH</code>-searching approach, where the first executable
@@ -369,7 +377,7 @@ of out desiderata we just listed?</p>
 <li><strong>unfamiliar language with mind-stretching new concepts</strong> - unless you are a Haskell (or PureScript, Idris, etc.) developer, the Nix language will take some getting used to. If you're coming from a background in C, C++, Python, Java, Javascript, C# or similar, you are used to thinking of programming 
 in terms of sequences of instructions. Sure, objects abstract this away to some extent, but you can still find the entry point and trace what happens, step-by-step. This has the indisputable advantage of being close to the way computers actually work: in assembly language (and to an even greater extent in machine code), your program really is just a sequence of instructions being executed. Functional programming is a bit further removed from how computers actually work. To what end? The benefit of functional programming is the focus on a clean mapping from input to output
 without side effects - in other words, functional programming is further from the CPU and closer to mathematics. In practice, this means that Nix can be a bit frustrating to read at first, because order of execution doesn't matter like it does in, say, Python. Nix is declarative, and this is a huge advantage, but it does mean that reading Nix feels different than reading a more 'normie' language. Nis has been described as 'JSON with functions', and I find this is a helpful way of thinking about it. Of course, it also has a few quirks like '<code>let-in</code> syntax', but with time and experience, the benefits of (nearly) every design choice will become clear and they will become more of a delight and less of a hindrance to understanding.</li>
-<li><strong>terribly unhelpful error messages</strong> - even the core team of Nix will acknowledge this. This is closely related to the point above; functional<br />
+<li><strong>terribly unhelpful error messages</strong> - even the core team of Nix will acknowledge this. This is closely related to the point above; functional
 languages, because they are inherently less sequential, can make it harder to localize the exact cause of the error, because sometimes expressions are evaluated in a different place than where they are written in your source code, and the error then refers to that evaluation-related location, rather than the location where you would actually fix the error. The Nix core developers have this on their radar and are working on it, but it's one of the poin points that people generally learn to live with. Over time, debugging Nix is something you will get a feel for, even if the error traces are less immediately helpful than in, say, Julia or Python.</li>
 <li><strong>lacking documentation</strong> - this is getting better all the time, but it's uncontroversial to say that Nix/NixOS does not have the same caliber of 
 documentation as, say, PHP or C#. The ecosystem can feel a bit chaotic, especially at first when you're stilling getting a feel for it.</li>

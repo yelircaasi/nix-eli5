@@ -28,6 +28,14 @@ required and doing it automatically, rather than requiring the user to
 imperatively install dependencies. Declarativeness is nice - we say what and
 the package manager figures out how.
 
+To be fair, there are install scripts. A script is clearly imperative - it is,
+after, just a sequence of instructions - by definition. At the same time, it is
+a more declarative approach to imperativeness, since it records the steps all in
+one place, in a reproducible manner. This, I believe, is why scripts are so 
+popular. It's also why Ansible is such a powerful and popular approach to 
+configuration management. But that doesn't that the scripting approach can't be
+improved upon.
+
 ## Fine-Grained Control
 
 While we're dreaming, we might also add a few more items to the wish list. It
@@ -56,7 +64,7 @@ some through various programming languages, maybe npm or Cargo. It is not
 uncommon to uninstall something you think is not longer needed, only to find
 that removing the package broke something in unexpected ways.
 
-You might try to be at least a bit __more__ declarative about installing
+You might try to be at least a bit *more* declarative about installing
 packages. You might keep track of what exactly you installed and do your
 best to roll back the state of your environment by tracing your steps and
 trying to undo them. Some commands like `apt autoremove` are helpful
@@ -84,7 +92,8 @@ that they 'left other packages alone', that would be great.
 
 ## Peaceful Co-Existence of Different Versions
 
-We already mentioned it, but there are often cases where would be desirable to
+We already mentioned it, and it's related to the point above, but there are 
+often cases where would be desirable to
 have different versions of the same package side-by side. If there is just one
 available place for a package of a certain name, how is this even possible?
 It isn't, not in the `$PATH`-searching approach, where the first executable

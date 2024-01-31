@@ -11,8 +11,7 @@ Here are a few things that come to mind:
 * **wonderful community** - perhaps surprising for a functional language, which sometimes have a 
   reputation for having elitist, snobbish, unwelcoming communities compared to some wonderfully 
   welcoming and helpful communities like (in my experience) the Julia, Raku, or Rust
-  communities. In my experience, NixOS communities, channels, and fora - both official and unofficial 
-  - have more in common with the latter. Much like with Rust, NixOS tends to inspire a certain kind of mostly-benign fanaticism, and this has the wonderful side-effect of willingness - often even eagerness - to help new beginners.
+  communities. In my experience, NixOS communities, channels, and fora - both official and unofficial - have more in common with the latter. Much like with Rust, NixOS tends to inspire a certain kind of mostly-benign fanaticism, and this has the wonderful side-effect of willingness - often even eagerness - to help new beginners.
 * **availability of software** - Nixpkgs is the best software repository out there. I'm asserting this
   without evidence, but take a look at [repology.org](https://repology.org/) - it's impressive.
   And maybe the best part is related to the next point - if something is missing, you can still

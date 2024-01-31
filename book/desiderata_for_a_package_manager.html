@@ -176,6 +176,13 @@ The best package managers are good at figuring out which dependencies are
 required and doing it automatically, rather than requiring the user to
 imperatively install dependencies. Declarativeness is nice - we say what and
 the package manager figures out how.</p>
+<p>To be fair, there are install scripts. A script is clearly imperative - it is,
+after, just a sequence of instructions - by definition. At the same time, it is
+a more declarative approach to imperativeness, since it records the steps all in
+one place, in a reproducible manner. This, I believe, is why scripts are so 
+popular. It's also why Ansible is such a powerful and popular approach to 
+configuration management. But that doesn't that the scripting approach can't be
+improved upon.</p>
 <h2 id="fine-grained-control"><a class="header" href="#fine-grained-control">Fine-Grained Control</a></h2>
 <p>While we're dreaming, we might also add a few more items to the wish list. It
 would be nice to be able to specify different options when installing software.
@@ -198,7 +205,7 @@ for example, you might install most packages with apt, but some from source,
 some through various programming languages, maybe npm or Cargo. It is not
 uncommon to uninstall something you think is not longer needed, only to find
 that removing the package broke something in unexpected ways.</p>
-<p>You might try to be at least a bit <strong>more</strong> declarative about installing
+<p>You might try to be at least a bit <em>more</em> declarative about installing
 packages. You might keep track of what exactly you installed and do your
 best to roll back the state of your environment by tracing your steps and
 trying to undo them. Some commands like <code>apt autoremove</code> are helpful
@@ -220,7 +227,8 @@ completely borks something else? Sometimes even something seemingly unrelated.
 Clearly side effects are not ideal. If we could install packages in such a way
 that they 'left other packages alone', that would be great.</p>
 <h2 id="peaceful-co-existence-of-different-versions"><a class="header" href="#peaceful-co-existence-of-different-versions">Peaceful Co-Existence of Different Versions</a></h2>
-<p>We already mentioned it, but there are often cases where would be desirable to
+<p>We already mentioned it, and it's related to the point above, but there are 
+often cases where would be desirable to
 have different versions of the same package side-by side. If there is just one
 available place for a package of a certain name, how is this even possible?
 It isn't, not in the <code>$PATH</code>-searching approach, where the first executable

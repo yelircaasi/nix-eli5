@@ -17,7 +17,7 @@ Good software, in some ways, is like a living organism. New versions are
 released from time to time, sometimes to add features, sometimes to fix bugs
 and to patch security vulnerabilities, and sometimes just to improve code
 quality. It is generally a good idea to keep up-to-date on software, but in,
-practice, some projects are better than others at keeping their dependincies
+practice, some projects are better than others at keeping their dependencies
 up-to-date. If we're unlucky, this can lead to dependency conflicts, where
 our project has dependencies which we'll call A and B, and A depends on a
 different, older version of B. Under "vanilla" Linux, we can't have two 
@@ -32,12 +32,12 @@ solution.
 
 There is another common problem - packages with unclear dependencies.
 In some cases, these dependencies are unknown or unrecognized because
-they are __usually__ present on a Linux system. But if they are missing, the
+they are *usually* present on a Linux system. But if they are missing, the
 project may fail to build or run. Anyone who has tried to install packages on
 a fresh install of Ubuntu or Debian has probably encountered this, for example.
-Usually the fix is simple - you search the error and find a Stack Overflow
-explaining which packages you need to install in order for the packages to
-build or run. Still, this kind of approach to software installation is
+Usually the fix is simple - you search the error and find a Stack Overflow 
+answer explaining which packages you need to install in order for the packages 
+to build or run. Still, this kind of approach to software installation is
 mildly irritating and clearly suboptimal. Sometimes, the problem is not so
 simple and developers can waste hours trying to figure out exactly which
 dependencies are missing.
@@ -45,7 +45,7 @@ dependencies are missing.
 Finally, another example of something about the status quo that we might want
 to improve upon - getting programs configured right is a fine art, and 
 "dotfiles" (configuration files) are very important to users who want programs
-to behave in a certain way. Configurations are an important part of the
+to look or behave a certain way. Configurations are an important part of the
 software, and managing configurations on multiple devices can be tedious.
 This can also be problematic when developers are working on the same project.
 The "it works on my machine" trope has become a meme precisely because
